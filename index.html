@@ -22,6 +22,11 @@
                 stroke:#a4adbc;
                 stroke-width:8px;
             }
+        .research {
+        fill:#c60623;
+        stroke:white;
+        stroke-width: 2px;
+            }
         .about {
             fill:#f7ae9f;
             stroke:#fafafa;
@@ -63,13 +68,13 @@
 
 
 <script>
-    var width = 500
+    var width = 400
         height = 800;
 
-    fields = [ {field:'about', label:'', size:'50'},
-               {field:'research', label:'',size:'70'},
-               {field:'teaching', label:'',size:'70'},
-               {field:'publications', label:'', size:'100'},
+    fields = [ {field:'about', label:'', size:'50', url:'about.html'},
+               {field:'research', label:'',size:'70', url:'research.html'},
+               {field:'teaching', label:'',size:'70',url:'teaching.html'},
+               {field:'publications', label:'', size:'100', url:'publications.html'},
                {field:'probability-group', label:'',size:'60', url:'http://www.probabilidad.cl'},
                {field:'puc', label:'', size:'30', url:'http://www.uc.cl'},
                {field:'math-department', label:'', size:'40', url:'http://www.mat.puc.cl'}
@@ -106,6 +111,14 @@
             .attr('width',width)
             .attr('height',height)
             .attr('class','background');
+
+    var name = backyard.append('g')
+                    .append('svg:image')
+                    .attr("xlink:href", "name.svg")
+                    .attr('x', width-370)
+                    .attr('y', 2*height/3)
+                    .attr("width", 400)
+                    .attr("height", 200);
 
     var miscForce = d3.layout.force()
                     .nodes(miscFields)
@@ -228,6 +241,7 @@
                         .attr("height", 100);
 
 
+
     // var bubbleLabels = backyard.selectAll('text')
     //                     .data(force.nodes(), function(d) { return d.label});
 
@@ -240,7 +254,7 @@
     force.on('tick', function() {
 
                 bubbles
-                    .attr('cx', function(d) { return Math.max(10, Math.min(d.x,width-10)) ; })
+                    .attr('cx', function(d) { return Math.max(10, Math.min(d.x,width-30)) ; })
                     .attr('cy', function(d) { return Math.max(10, Math.min(d.y,height-10)); });
 
                 // bubbleLabels
@@ -250,22 +264,22 @@
                 pucBubble.attr('x', function(d) { return Math.max(10, Math.min(d.x-30,width-10)); })
                          .attr('y', function(d) { return Math.max(10, Math.min(d.y-30,height-10)); });
 
-                groupBubble.attr('x', function(d) { return Math.max(10, Math.min(d.x-30,width-10)); })
+                groupBubble.attr('x', function(d) { return Math.max(-20, Math.min(d.x-30,width-60)); })
                          .attr('y', function(d) { return Math.max(10, Math.min(d.y-30,height-10)); });
 
-                teachingBubble.attr('x', function(d) { return Math.max(10, Math.min(d.x-30,width-10)); })
+                teachingBubble.attr('x', function(d) { return Math.max(-20, Math.min(d.x-30,width-50)); })
                          .attr('y', function(d) { return Math.max(10, Math.min(d.y-20,height-10)); });
 
-                researchBubble.attr('x', function(d) { return Math.max(10, Math.min(d.x-30,width-10)); })
+                researchBubble.attr('x', function(d) { return Math.max(-20, Math.min(d.x-30,width-60)); })
                          .attr('y', function(d) { return Math.max(10, Math.min(d.y-20,height-10)); });
 
-                aboutBubble.attr('x', function(d) { return Math.max(10, Math.min(d.x-33,width-10)); })
+                aboutBubble.attr('x', function(d) { return Math.max(-20, Math.min(d.x-35,width-65)); })
                          .attr('y', function(d) { return Math.max(10, Math.min(d.y-20,height-10)); });
 
-                publicationsBubble.attr('x', function(d) { return Math.max(10, Math.min(d.x-40,width-30)); })
+                publicationsBubble.attr('x', function(d) { return Math.max(-20, Math.min(d.x-30,width-50)); })
                          .attr('y', function(d) { return Math.max(10, Math.min(d.y-20,height-10)); });
 
-                mathBubble.attr('x', function(d) { return Math.max(10, Math.min(d.x-40,width-10)); })
+                mathBubble.attr('x', function(d) { return Math.max(-30, Math.min(d.x-40,width-70)); })
                          .attr('y', function(d) { return Math.max(10, Math.min(d.y-60,height-10)); });
             });
 
