@@ -24,7 +24,7 @@
             }
         .about {
             fill:#f7ae9f;
-            stroke:#a4adbc;
+            stroke:#fafafa;
             stroke-width: 3px;
             }
         .publications {
@@ -41,6 +41,9 @@
         .math-department {
             fill:#b8c2db;
         }
+        .probability-group {
+            fill:black;
+        }
         .misc-bubble {
             fill:#37170a;
         }
@@ -51,9 +54,8 @@
 <body>
 
 
-
 <div class="row" style="background-color:#fff9da;">
-    <div class="col-md-11">
+    <div class="col-md-11" style=" margin:2cm;">
         <div id="demo"></div>
     </div>
 </div>
@@ -61,16 +63,16 @@
 
 
 <script>
-    var width = 800
+    var width = 500
         height = 800;
 
-    fields = [ {field:'about', label:'About', size:'50'},
-               {field:'research', label:'Research',size:'70'},
-               {field:'teaching', label:'Teaching',size:'70'},
-               {field:'publications', label:'Publications', size:'100'},
-               {field:'probability-group', label:'Probability Group',size:'60'},
-               {field:'puc', label:'PUC', size:'30'},
-               {field:'math-department', label:'Math Department', size:'40'},
+    fields = [ {field:'about', label:'', size:'50'},
+               {field:'research', label:'',size:'70'},
+               {field:'teaching', label:'',size:'70'},
+               {field:'publications', label:'', size:'100'},
+               {field:'probability-group', label:'',size:'60', url:'http://www.probabilidad.cl'},
+               {field:'puc', label:'', size:'30', url:'http://www.uc.cl'},
+               {field:'math-department', label:'', size:'40', url:'http://www.mat.puc.cl'}
     ];
 
     links = [
@@ -139,6 +141,8 @@
                     .data(force.nodes())
                     .enter()
                     .append('g')
+                    .append('a')
+                    .attr('xlink:href',function(d) { return d.url; })
                     .attr('id', function(d) { return d.field; })
                     .append('circle')
                     .attr('r', function(d) { return d.size; })
@@ -147,27 +151,89 @@
 
     var pucBubble = d3.select('#puc')
                         .append('g')
-                        // .append('text')
-                        // .attr('text-anchor','start')
-                        // .attr('fill','black')
-                        // .text('hola');
                         .append('svg:image')
                         .attr("xlink:href", "uc-small.svg")
                         .attr('x', function(d) { return d.x-30; })
                         .attr('y', function(d) { return d.y-30; })
                         .attr('x',20)
                         .attr('y',20)
-                        .attr("width", 60)
-                        .attr("height", 60);
+                        .attr("width", 80)
+                        .attr("height", 80);
+
+    var groupBubble = d3.select('#probability-group')
+                        .append('g')
+                        .append('svg:image')
+                        .attr("xlink:href", "probability-group.svg")
+                        .attr('x', function(d) { return d.x-30; })
+                        .attr('y', function(d) { return d.y-30; })
+                        .attr('x',20)
+                        .attr('y',20)
+                        .attr("width", 80)
+                        .attr("height", 80);
+
+    var teachingBubble = d3.select('#teaching')
+                        .append('g')
+                        .append('svg:image')
+                        .attr("xlink:href", "teaching.svg")
+                        .attr('x', function(d) { return d.x-30; })
+                        .attr('y', function(d) { return d.y-30; })
+                        .attr('x',20)
+                        .attr('y',20)
+                        .attr("width", 80)
+                        .attr("height", 80);
+
+    var researchBubble = d3.select('#research')
+                        .append('g')
+                        .append('svg:image')
+                        .attr("xlink:href", "research.svg")
+                        .attr('x', function(d) { return d.x-30; })
+                        .attr('y', function(d) { return d.y-30; })
+                        .attr('x',20)
+                        .attr('y',20)
+                        .attr("width", 80)
+                        .attr("height", 80);
+
+    var aboutBubble = d3.select('#about')
+                        .append('g')
+                        .append('svg:image')
+                        .attr("xlink:href", "about.svg")
+                        .attr('x', function(d) { return d.x-30; })
+                        .attr('y', function(d) { return d.y-30; })
+                        .attr('x',20)
+                        .attr('y',20)
+                        .attr("width", 80)
+                        .attr("height", 80);
+
+    var publicationsBubble = d3.select('#publications')
+                        .append('g')
+                        .append('svg:image')
+                        .attr("xlink:href", "publications.svg")
+                        .attr('x', function(d) { return d.x-40; })
+                        .attr('y', function(d) { return d.y-30; })
+                        .attr('x',20)
+                        .attr('y',20)
+                        .attr("width", 120)
+                        .attr("height", 100);
+
+    var mathBubble = d3.select('#math-department')
+                        .append('g')
+                        .append('svg:image')
+                        .attr("xlink:href", "math-uc.svg")
+                        .attr('x', function(d) { return d.x-40; })
+                        .attr('y', function(d) { return d.y-30; })
+                        .attr('x',20)
+                        .attr('y',20)
+                        .attr("width", 120)
+                        .attr("height", 100);
 
 
-    // var bubbleLabels = backyard.selectAll('text')
-    //                     .data(force.nodes(), function(d) { return d.label});
+    var bubbleLabels = backyard.selectAll('text')
+                        .data(force.nodes(), function(d) { return d.label});
 
-    // bubbleLabels.enter().append('text')
-    //             .text(function(d) { return d.label; })
-    //             .attr('x', function(d, i) { return d.x - 20; })
-    //             .attr('y', function(d, i) { return d.y; });
+    bubbleLabels.enter().append('text')
+                .text(function(d) { return d.label; })
+                .attr('x', function(d, i) { return d.x - 20; })
+                .attr('y', function(d, i) { return d.y; });
 
 
     force.on('tick', function() {
@@ -176,12 +242,30 @@
                     .attr('cx', function(d) { return d.x ; })
                     .attr('cy', function(d) { return d.y; });
 
-                // bubbleLabels
-                //     .attr('x', function(d, i) { return d.x - 20; })
-                //     .attr('y', function(d, i) { return d.y; });
+                bubbleLabels
+                    .attr('x', function(d, i) { return d.x - 20; })
+                    .attr('y', function(d, i) { return d.y; });
 
                 pucBubble.attr('x', function(d) { return d.x-30; })
                          .attr('y', function(d) { return d.y-30; });
+
+                groupBubble.attr('x', function(d) { return d.x-30; })
+                         .attr('y', function(d) { return d.y-30; });
+
+                teachingBubble.attr('x', function(d) { return d.x-30; })
+                         .attr('y', function(d) { return d.y-20; });
+
+                researchBubble.attr('x', function(d) { return d.x-30; })
+                         .attr('y', function(d) { return d.y-20; });
+
+                aboutBubble.attr('x', function(d) { return d.x-30; })
+                         .attr('y', function(d) { return d.y-20; });
+
+                publicationsBubble.attr('x', function(d) { return d.x-40; })
+                         .attr('y', function(d) { return d.y-20; });
+
+                mathBubble.attr('x', function(d) { return d.x-40; })
+                         .attr('y', function(d) { return d.y-60; });
             });
 
     miscForce.on('tick', function() {
