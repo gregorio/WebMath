@@ -54,10 +54,10 @@
 <body>
 
 
-<div class="row" style="background-color:#fff9da;">
-    <div class="col-md-11" style=" margin:2cm;">
-        <div id="demo"></div>
-    </div>
+<div id="div-back" class="row" style="background-color:#fff9da;">
+
+        <div id="demo" class="col-md-11" style=" margin:2cm;"></div>
+
 </div>
 
 
@@ -77,10 +77,11 @@
 
     links = [
             {source:'about', target:'research'},
-            {source:'research',target:'teaching'},
-            {source:'teaching',target:'about'},
-            {source:'puc',target:'about'},
-            {source:'publications',target:'about'},
+            {source:'research',target:'publications'},
+            {source:'publications',target:'probability-group'},
+            {source:'probability-group',target:'teaching'},
+            {source:'teaching',target:'math-department'},
+            {source:'math-department', target:'puc'}
     ];
 
     miscFields = [
@@ -129,8 +130,8 @@
                     .nodes(fields)
                     .links(links)
                     .size([width,height])
-                    .linkStrength(0.2)
-                    .linkDistance(100)
+                    .linkStrength(10)
+                    .linkDistance(50)
                     .charge(-2000)
                     .friction(0.5)
                     .start();
@@ -147,7 +148,7 @@
                     .append('circle')
                     .attr('r', function(d) { return d.size; })
                     .attr('class', function(d) { return d.field; })
-                    .call(force.drag);
+                    .call(force.drag());
 
     var pucBubble = d3.select('#puc')
                         .append('g')
@@ -239,33 +240,33 @@
     force.on('tick', function() {
 
                 bubbles
-                    .attr('cx', function(d) { return d.x ; })
-                    .attr('cy', function(d) { return d.y; });
+                    .attr('cx', function(d) { return Math.max(10, Math.min(d.x,width-10)) ; })
+                    .attr('cy', function(d) { return Math.max(10, Math.min(d.y,height-10)); });
 
                 // bubbleLabels
                 //     .attr('x', function(d, i) { return d.x - 20; })
                 //     .attr('y', function(d, i) { return d.y; });
 
-                pucBubble.attr('x', function(d) { return d.x-30; })
-                         .attr('y', function(d) { return d.y-30; });
+                pucBubble.attr('x', function(d) { return Math.max(10, Math.min(d.x-30,width-10)); })
+                         .attr('y', function(d) { return Math.max(10, Math.min(d.y-30,height-10)); });
 
-                groupBubble.attr('x', function(d) { return d.x-30; })
-                         .attr('y', function(d) { return d.y-30; });
+                groupBubble.attr('x', function(d) { return Math.max(10, Math.min(d.x-30,width-10)); })
+                         .attr('y', function(d) { return Math.max(10, Math.min(d.y-30,height-10)); });
 
-                teachingBubble.attr('x', function(d) { return d.x-30; })
-                         .attr('y', function(d) { return d.y-20; });
+                teachingBubble.attr('x', function(d) { return Math.max(10, Math.min(d.x-30,width-10)); })
+                         .attr('y', function(d) { return Math.max(10, Math.min(d.y-20,height-10)); });
 
-                researchBubble.attr('x', function(d) { return d.x-30; })
-                         .attr('y', function(d) { return d.y-20; });
+                researchBubble.attr('x', function(d) { return Math.max(10, Math.min(d.x-30,width-10)); })
+                         .attr('y', function(d) { return Math.max(10, Math.min(d.y-20,height-10)); });
 
-                aboutBubble.attr('x', function(d) { return d.x-33; })
-                         .attr('y', function(d) { return d.y-20; });
+                aboutBubble.attr('x', function(d) { return Math.max(10, Math.min(d.x-33,width-10)); })
+                         .attr('y', function(d) { return Math.max(10, Math.min(d.y-20,height-10)); });
 
-                publicationsBubble.attr('x', function(d) { return d.x-40; })
-                         .attr('y', function(d) { return d.y-20; });
+                publicationsBubble.attr('x', function(d) { return Math.max(10, Math.min(d.x-40,width-30)); })
+                         .attr('y', function(d) { return Math.max(10, Math.min(d.y-20,height-10)); });
 
-                mathBubble.attr('x', function(d) { return d.x-40; })
-                         .attr('y', function(d) { return d.y-60; });
+                mathBubble.attr('x', function(d) { return Math.max(10, Math.min(d.x-40,width-10)); })
+                         .attr('y', function(d) { return Math.max(10, Math.min(d.y-60,height-10)); });
             });
 
     miscForce.on('tick', function() {
@@ -275,6 +276,13 @@
                     .attr('cy', function(d) { return d.y; });
             });
 
+    // var square = d3.select('#div-middle').append('svg')
+    //                 .append('rect')
+    //                 .attr('x',20)
+    //                 .attr('y',20)
+    //                 .attr('width',50)
+    //                 .attr('height',50)
+    //                 .attr('fill','blue');
 
 </script>
 
