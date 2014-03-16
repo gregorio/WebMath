@@ -84,16 +84,16 @@
     ];
 
     miscFields = [
-               // {field:'misc', label:'', size:'20'},
-               // {field:'misc', label:'', size:'15'},
-               // {field:'misc', label:'', size:'10'},
-               // {field:'misc', label:'', size:'10'},
-               // {field:'misc', label:'', size:'20'},
-               // {field:'misc', label:'', size:'15'},
-               // {field:'misc', label:'', size:'10'},
-               // {field:'misc', label:'', size:'20'},
-               // {field:'misc', label:'', size:'35'},
-               // {field:'misc', label:'', size:'25'}
+               {field:'misc', label:'', size:'20'},
+               {field:'misc', label:'', size:'15'},
+               {field:'misc', label:'', size:'10'},
+               {field:'misc', label:'', size:'10'},
+               {field:'misc', label:'', size:'20'},
+               {field:'misc', label:'', size:'15'},
+               {field:'misc', label:'', size:'10'},
+               {field:'misc', label:'', size:'20'},
+               {field:'misc', label:'', size:'35'},
+               {field:'misc', label:'', size:'25'}
     ];
 
     var backyard = d3.select('#demo').append('g').attr('class','web')
@@ -197,7 +197,7 @@
                         .append('g')
                         .append('svg:image')
                         .attr("xlink:href", "about.svg")
-                        .attr('x', function(d) { return d.x-30; })
+                        .attr('x', function(d) { return d.x-40; })
                         .attr('y', function(d) { return d.y-30; })
                         .attr('x',20)
                         .attr('y',20)
@@ -258,7 +258,7 @@
                 researchBubble.attr('x', function(d) { return d.x-30; })
                          .attr('y', function(d) { return d.y-20; });
 
-                aboutBubble.attr('x', function(d) { return d.x-30; })
+                aboutBubble.attr('x', function(d) { return d.x-33; })
                          .attr('y', function(d) { return d.y-20; });
 
                 publicationsBubble.attr('x', function(d) { return d.x-40; })
