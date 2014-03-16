@@ -13,23 +13,36 @@
     <script src="js/d3/d3.js"></script>
     <style type="text/css">
         .bubble {
-        fill:red;
+        fill:#c60623;
         stroke:white;
         stroke-width: 2px;
             }
         rect.background {
-                fill:#8ae234;
-                stroke:black;
-                stroke-width:5px;
-                    }
+                fill:#8ed200;
+                stroke:#a4adbc;
+                stroke-width:8px;
+            }
         .about {
-            fill:white;
-            stroke:orange;
-            stroke-width: 2px;
+            fill:#f7ae9f;
+            stroke:#a4adbc;
+            stroke-width: 3px;
             }
         .publications {
-            fill:orange;
+            fill:#f76e06;
+            }
+        .teaching {
+            fill:#2bc8eb;
         }
+        .puc {
+            fill:#fafafa;
+            stroke:#b8c2db;
+            stroke-width: 3px;
+        }
+        .math-department {
+            fill:#b8c2db;
+        }
+        .misc {
+            fill:#37170a;
         }
     </style>
 
@@ -39,7 +52,7 @@
 
 
 
-<div class="row" style="background-color:grey;">
+<div class="row" style="background-color:#fff9da;">
     <div class="col-md-11">
         <div id="demo"></div>
     </div>
@@ -57,7 +70,11 @@
                {field:'publications', label:'Publications', size:'100'},
                {field:'probability-group', label:'Probability Group',size:'60'},
                {field:'puc', label:'PUC', size:'30'},
-               {field:'math-department', label:'Math Department', size:'40'}
+               {field:'math-department', label:'Math Department', size:'40'},
+               {field:'misc', label:'', size:'20'},
+               {field:'misc', label:'', size:'15'},
+               {field:'misc', label:'', size:'10'},
+               {field:'misc', label:'', size:'10'},
     ];
 
     links = [
