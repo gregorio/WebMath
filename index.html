@@ -227,13 +227,13 @@
                         .attr("height", 100);
 
 
-    var bubbleLabels = backyard.selectAll('text')
-                        .data(force.nodes(), function(d) { return d.label});
+    // var bubbleLabels = backyard.selectAll('text')
+    //                     .data(force.nodes(), function(d) { return d.label});
 
-    bubbleLabels.enter().append('text')
-                .text(function(d) { return d.label; })
-                .attr('x', function(d, i) { return d.x - 20; })
-                .attr('y', function(d, i) { return d.y; });
+    // bubbleLabels.enter().append('text')
+    //             .text(function(d) { return d.label; })
+    //             .attr('x', function(d, i) { return d.x - 20; })
+    //             .attr('y', function(d, i) { return d.y; });
 
 
     force.on('tick', function() {
@@ -242,9 +242,9 @@
                     .attr('cx', function(d) { return d.x ; })
                     .attr('cy', function(d) { return d.y; });
 
-                bubbleLabels
-                    .attr('x', function(d, i) { return d.x - 20; })
-                    .attr('y', function(d, i) { return d.y; });
+                // bubbleLabels
+                //     .attr('x', function(d, i) { return d.x - 20; })
+                //     .attr('y', function(d, i) { return d.y; });
 
                 pucBubble.attr('x', function(d) { return d.x-30; })
                          .attr('y', function(d) { return d.y-30; });
