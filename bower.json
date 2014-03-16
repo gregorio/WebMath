@@ -1,0 +1,27 @@
+{
+  "name": "WebMath",
+  "version": "0.0.0",
+  "authors": [
+    "gregorio <gregorio.random@gmail.com>"
+  ],
+  "description": "my math website",
+  "main": "index.html",
+  "keywords": [
+    "gregorio",
+    "math",
+    "probability"
+  ],
+  "license": "MIT",
+  "homepage": "www.probability.cl",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "d3": "~3.4.3"
+  }
+}

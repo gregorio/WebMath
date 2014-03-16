@@ -1,0 +1,17 @@
+# Jekyll Configuration
+safe: true
+markdown: rdiscount
+pigments: true
+permalink: pretty
+exclude:
+    - bower_components
+    - node_modules
+    - Gruntfile.js
+    - bower.json
+    - package.json
+    - README.md
+
+# Site
+name: Network Chart
+baseurl: http://gregorio.github.io/WebMath
+github: http://github.com/gregorio/WebMath.git

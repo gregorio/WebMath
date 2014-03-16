@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> Homepage </title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <link href="css/main.css" rel="stylesheet">
+    <script src="js/d3/d3.js"></script>
+    <style type="text/css">
+        .bubble {
+        fill:red;
+        stroke:white;
+        stroke-width: 2px;
+            }
+        rect.background {
+                fill:#8ae234;
+                stroke:black;
+                stroke-width:5px;
+                    }
+        .about {
+            fill:white;
+            stroke:orange;
+            stroke-width: 2px;
+            }
+        .publications {
+            fill:orange;
+        }
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+
+<div class="row" style="background-color:grey;">
+    <div class="col-md-11">
+        <div id="demo"></div>
+    </div>
+</div>
+
+
+
+<script>
+    var width = 800
+        height = 800;
+
+    fields = [ {field:'about', label:'About', size:'50'},
+               {field:'research', label:'Research',size:'70'},
+               {field:'teaching', label:'Teaching',size:'70'},
+               {field:'publications', label:'Publications', size:'100'},
+               {field:'probability-group', label:'Probability Group',size:'60'},
+               {field:'puc', label:'PUC', size:'30'},
+               {field:'math-department', label:'Math Department', size:'40'}
+    ];
+
+    links = [
+            {source:'about', target:'research'},
+            {source:'research',target:'teaching'},
+            {source:'teaching',target:'about'},
+            {source:'puc',target:'about'},
+            {source:'publications',target:'about'},
+    ];
+
+    var backyard = d3.select('#demo').append('g').attr('class','web')
+                        .append('svg')
+                        .attr('height',height)
+                        .attr('width',width);
+
+    backyard.append('rect')
+            .attr('width',width)
+            .attr('height',height)
+            .attr('class','background');
+
+
+    var force = d3.layout.force()
+                    .nodes(fields)
+                    .links(links)
+                    .size([width,height])
+                    .linkStrength(0.2)
+                    .linkDistance(100)
+                    .charge(-2000)
+                    .friction(0.5)
+                    .start();
+
+
+    var bubbles = backyard.append('g').attr('class','bubble')
+                    .selectAll('circle')
+                    .data(force.nodes())
+                    .enter()
+                    .append('circle')
+                    .attr('r', function(d) { return d.size; })
+                    .attr('class', function(d) { return d.field; })
+                    .attr('cy',50)
+                    .attr('cx', -10)
+                    .call(force.drag);
+
+    var bubbleLabels = backyard.selectAll('text')
+                        .data(force.nodes(), function(d) { return d.label});
+
+    bubbleLabels.enter().append('text')
+                .text(function(d) { return d.label; })
+                .attr('x', function(d, i) { return d.x - 20; })
+                .attr('y', function(d, i) { return d.y; });
+
+
+    force.on('tick', function() {
+
+                bubbles
+                    .attr('cx', function(d) { return d.x ; })
+                    .attr('cy', function(d) { return d.y; });
+
+                bubbleLabels
+                    .attr('x', function(d, i) { return d.x - 20; })
+                    .attr('y', function(d, i) { return d.y; });
+            });
+
+
+
+</script>
+
+    <!-- JavaScript -->
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/bootstrap.js"></script>
+
+</body>
+
+</html>
