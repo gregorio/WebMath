@@ -34,14 +34,14 @@
             fill:#2bc8eb;
         }
         .puc {
-            fill:#fafafa;
-            stroke:#b8c2db;
-            stroke-width: 3px;
+            fill:none;
+            stroke:none;
+            stroke-width: 1.6px;
         }
         .math-department {
             fill:#b8c2db;
         }
-        .misc {
+        .misc-bubble {
             fill:#37170a;
         }
     </style>
@@ -71,10 +71,6 @@
                {field:'probability-group', label:'Probability Group',size:'60'},
                {field:'puc', label:'PUC', size:'30'},
                {field:'math-department', label:'Math Department', size:'40'},
-               {field:'misc', label:'', size:'20'},
-               {field:'misc', label:'', size:'15'},
-               {field:'misc', label:'', size:'10'},
-               {field:'misc', label:'', size:'10'},
     ];
 
     links = [
@@ -83,6 +79,19 @@
             {source:'teaching',target:'about'},
             {source:'puc',target:'about'},
             {source:'publications',target:'about'},
+    ];
+
+    miscFields = [
+               // {field:'misc', label:'', size:'20'},
+               // {field:'misc', label:'', size:'15'},
+               // {field:'misc', label:'', size:'10'},
+               // {field:'misc', label:'', size:'10'},
+               // {field:'misc', label:'', size:'20'},
+               // {field:'misc', label:'', size:'15'},
+               // {field:'misc', label:'', size:'10'},
+               // {field:'misc', label:'', size:'20'},
+               // {field:'misc', label:'', size:'35'},
+               // {field:'misc', label:'', size:'25'}
     ];
 
     var backyard = d3.select('#demo').append('g').attr('class','web')
@@ -94,6 +103,24 @@
             .attr('width',width)
             .attr('height',height)
             .attr('class','background');
+
+    var miscForce = d3.layout.force()
+                    .nodes(miscFields)
+                    .size([width,height])
+                    .linkStrength(0.2)
+                    .linkDistance(100)
+                    .charge(-2000)
+                    .friction(0.5)
+                    .start();
+
+    var miscBubbles = backyard.append('g').attr('class','misc-bubble')
+                    .selectAll('circle.misc-bubble')
+                    .data(miscForce.nodes())
+                    .enter()
+                    .append('circle')
+                    .attr('class','misc-bubble')
+                    .attr('r', function(d) { return d.size; })
+                    .call(miscForce.drag);
 
 
     var force = d3.layout.force()
@@ -108,23 +135,39 @@
 
 
     var bubbles = backyard.append('g').attr('class','bubble')
-                    .selectAll('circle')
+                    .selectAll('circle.bubble')
                     .data(force.nodes())
                     .enter()
+                    .append('g')
+                    .attr('id', function(d) { return d.field; })
                     .append('circle')
                     .attr('r', function(d) { return d.size; })
                     .attr('class', function(d) { return d.field; })
-                    .attr('cy',50)
-                    .attr('cx', -10)
                     .call(force.drag);
 
-    var bubbleLabels = backyard.selectAll('text')
-                        .data(force.nodes(), function(d) { return d.label});
+    var pucBubble = d3.select('#puc')
+                        .append('g')
+                        // .append('text')
+                        // .attr('text-anchor','start')
+                        // .attr('fill','black')
+                        // .text('hola');
+                        .append('svg:image')
+                        .attr("xlink:href", "uc-small.svg")
+                        .attr('x', function(d) { return d.x-30; })
+                        .attr('y', function(d) { return d.y-30; })
+                        .attr('x',20)
+                        .attr('y',20)
+                        .attr("width", 60)
+                        .attr("height", 60);
 
-    bubbleLabels.enter().append('text')
-                .text(function(d) { return d.label; })
-                .attr('x', function(d, i) { return d.x - 20; })
-                .attr('y', function(d, i) { return d.y; });
+
+    // var bubbleLabels = backyard.selectAll('text')
+    //                     .data(force.nodes(), function(d) { return d.label});
+
+    // bubbleLabels.enter().append('text')
+    //             .text(function(d) { return d.label; })
+    //             .attr('x', function(d, i) { return d.x - 20; })
+    //             .attr('y', function(d, i) { return d.y; });
 
 
     force.on('tick', function() {
@@ -133,11 +176,20 @@
                     .attr('cx', function(d) { return d.x ; })
                     .attr('cy', function(d) { return d.y; });
 
-                bubbleLabels
-                    .attr('x', function(d, i) { return d.x - 20; })
-                    .attr('y', function(d, i) { return d.y; });
+                // bubbleLabels
+                //     .attr('x', function(d, i) { return d.x - 20; })
+                //     .attr('y', function(d, i) { return d.y; });
+
+                pucBubble.attr('x', function(d) { return d.x-30; })
+                         .attr('y', function(d) { return d.y-30; });
             });
 
+    miscForce.on('tick', function() {
+
+                miscBubbles
+                    .attr('cx', function(d) { return d.x ; })
+                    .attr('cy', function(d) { return d.y; });
+            });
 
 
 </script>
